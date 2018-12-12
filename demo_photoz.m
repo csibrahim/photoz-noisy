@@ -20,10 +20,10 @@ testSplit  = 0.6;
 
 csl_method = 'normal';
 
-trainOption = 3;    % 1=Features, 2=Sampling and 3=Parameters
+trainOption = 3;    % 1=Features, 2=Sampling, 3=Parameters and 4=weights
 samplingSize = 30;  % if Sampling is used
 
-transform = 0;   % assum a log-normal distribution and transform the mean and variance accordingly
+transform = 1;   % Assume 1 = log-normal, 2=gamma, 3=luptitudes and otherwise linear
 
 binWidth = 0.1;
 
@@ -48,9 +48,6 @@ Y(remove)=[];
 
 [n,d] = size(X);
 filters = d/2;
- 
-% you can also select the size of each sample
-% [training,validation,testing] = sample(n,10000,10000,10000);
   
 % get the weights for cost-sensitive learning
 omega = getOmega(Y,csl_method,binWidth);
@@ -166,7 +163,6 @@ if(trainOption==2)
     beta_i = mean(beta_i)'+varMu;
     gamma = mean(gamma)'+varMu;
 end
-
 
 % mu     = the best point estimate
 % nu     = variance due to data density
