@@ -23,7 +23,7 @@ csl_method = 'normal';
 trainOption = 3;    % 1=Features, 2=Sampling, 3=Parameters and 4=weights
 samplingSize = 30;  % if Sampling is used
 
-transform = 1;   % Assume 1 = log-normal, 2=gamma, 3=luptitudes and otherwise linear
+transform = 3;   % Assume 1 = log-normal, 2=gamma, 3=luptitudes and otherwise linear
 
 binWidth = 0.1;
 
@@ -104,9 +104,12 @@ elseif(trainOption==3) % treat the mag-errors as input noise variance
             Psi = psi(1,k);
             
         case 3 % luptitudes
-            b = sqrt(Psi);
-            Psi = (((2.5/log(10))./(2*b))).*(b./(1 + (X./(2*b))));
-            X = -2.5/log(10) * (asinh(X./(2*b)) + log(b));
+            
+            muPsi = mean(sqrt(Psi));
+            Xn = bsxfun(@rdivide, X, 2*muPsi);
+            Psi = (2.5/log(10))^2 * bsxfun(@rdivide, Psi./(1 + Xn.^2), 4*muPsi.^2);
+            X = -2.5/log(10) * bsxfun(@plus, asinh(Xn), log(muPsi));
+
     end
 else % use errors as weights in CSL
     
