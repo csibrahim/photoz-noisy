@@ -47,28 +47,29 @@ for i=1:k
     bias(:,i) = metrics(Y,mus(:,i),sigmas(:,i),@(y,mu,sigma) y-mu);
 
     % now plot the density and the uncertainty plots side by side
-    figure;
+%     figure;
     
-    set(gcf,'NumberTitle','off')
-    set(gcf,'Name',names{i})
+%     set(gcf,'NumberTitle','off')
+%     set(gcf,'Name',names{i})
 
-    subplot(1,2,1);
+    subplot(k,2,2*(i-1)+1);
     heat(Y,mus(:,i),log(sigmas(:,i)),0.01,0.1);title('Uncertainty');
     xlabel('Spectroscopic Redshift');
     ylabel('Photometric Redshift');
     colormap jet;
     
-    subplot(1,2,2);
+    subplot(k,2,2*(i-1)+2);
     heat(Y,mus(:,i),[],0.01,0.1);
     title('Density');
     xlabel('Spectroscopic Redshift');
     ylabel('Photometric Redshift');
     colormap jet;
 
-    pos = get(gcf,'Position');
-    set(gcf,'Position',[pos(1)/4  pos(2)   2*pos(3)   pos(4)]);
-    drawnow;
 end
+
+pos = get(gcf,'Position');
+set(gcf,'Position',[pos(1)/4  pos(2)   2*pos(3)   2*pos(4)]);
+drawnow;
 
 
 % print metrics for the entire data for each file
@@ -87,13 +88,13 @@ figure;plot(x,bias(ind,:),'o-');xlabel('Percentage of Data');ylabel('BIAS');lege
 
 % plot the mean and the standard deviation of different scores as functions of spectroscopic redshift using 20 bins
 [centers,means,stds] = bin(Y,-bsxfun(@minus,mus,Y),20);
-figure;errorbar(repmat(centers,1,k),means,stds,'s');xlabel('Spectroscopic Redshift');ylabel('Bias');legend(names);drawnow
+figure;errorbar(repmat(centers,1,k),means,stds,':','LineWidth',2);xlabel('Spectroscopic Redshift');ylabel('Bias');legend(names);drawnow
 
 [centers,means,stds] = bin(Y,sqrt(nus),20);
-figure;errorbar(repmat(centers,1,k),means,stds,'s');xlabel('Spectroscopic Redshift');ylabel('Model Uncertainty');legend(names);drawnow
+figure;errorbar(repmat(centers,1,k),means,stds,':','LineWidth',2);xlabel('Spectroscopic Redshift');ylabel('Model Uncertainty');legend(names);drawnow
 
 [centers,means,stds] = bin(Y,sqrt(beta_is),20);
-figure;errorbar(repmat(centers,1,k),means,stds,'s');xlabel('Spectroscopic Redshift');ylabel('Noise Uncertainty');legend(names);drawnow
+figure;errorbar(repmat(centers,1,k),means,stds,':','LineWidth',2);xlabel('Spectroscopic Redshift');ylabel('Noise Uncertainty');legend(names);drawnow
 
 [centers,means,stds] = bin(Y,sqrt(gammas),20);
-figure;errorbar(repmat(centers,1,k),means,stds,'s');xlabel('Spectroscopic Redshift');ylabel('Input Noise Uncertainty');legend(names);drawnow
+figure;errorbar(repmat(centers,1,k),means,stds,':','LineWidth',2);xlabel('Spectroscopic Redshift');ylabel('Input Noise Uncertainty');legend(names);drawnow
