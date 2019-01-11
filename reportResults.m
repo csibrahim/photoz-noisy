@@ -95,8 +95,12 @@ figure;plot(x,fr15(ind,:),'o-');xlabel('Percentage of Data');ylabel('FR15');lege
 figure;plot(x,bias(ind,:),'o-');xlabel('Percentage of Data');ylabel('BIAS');legend(names);drawnow
 
 % plot the mean and the standard deviation of different scores as functions of spectroscopic redshift using 20 bins
-[centers,means,stds] = bin(Y,-bsxfun(@minus,mus,Y),20);
-figure;errorbar(repmat(centers,1,k),means,stds,':','LineWidth',2);xlabel('Spectroscopic Redshift');ylabel('Bias');legend(names);drawnow
+figure;
+for i=1:k
+    [centers,means,stds] = bin_single(mus(:,i), Y-mus(:,i), 20, 3);
+    errorbar(centers,means,stds,':','LineWidth',2); hold on;
+end
+xlabel('Photometric Redshift');ylabel('Bias');legend(names);ylim([-1 1]);drawnow
 
 [centers,means,stds] = bin(Y,sqrt(nus),20);
 figure;errorbar(repmat(centers,1,k),means,stds,':','LineWidth',2);xlabel('Spectroscopic Redshift');ylabel('Model Uncertainty');legend(names);drawnow
