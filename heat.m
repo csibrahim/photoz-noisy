@@ -1,8 +1,7 @@
 function ok = heat(X,Y,C,step,res)
+    rangeX = 5;
+    rangeY = 5;
 
-    rangeX = max(X)-min(X);
-    rangeY = max(Y)-min(Y);
-    
     stepX = rangeX*step;
     stepY = rangeY*step;
 
