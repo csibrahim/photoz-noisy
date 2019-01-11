@@ -27,10 +27,10 @@ bias = zeros(n,k);
 
 %%%%% compute the metrics and plot the scatter plot for each file %%%%%%
 for i=1:k
-    
+
     data = csvread([folder,names{i}]);
-    Y = data(:,1); mus(:,i) = data(:,2); sigmas(:,i) = data(:,3); nus(:,i) = data(:,3); beta_is(:,i) = data(:,4); gammas(:,i) = data(:,5);
-    
+    Y = data(:,1); mus(:,i) = data(:,2); sigmas(:,i) = data(:,3); nus(:,i) = data(:,4); beta_is(:,i) = data(:,5); gammas(:,i) = data(:,6);
+
     %root mean squared error, i.e. sqrt(mean(errors^2))
     rmse(:,i) = sqrt(metrics(Y,mus(:,i),sigmas(:,i),@(y,mu,sigma) (y-mu).^2));
 
