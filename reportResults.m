@@ -48,21 +48,29 @@ for i=1:k
 
     % now plot the density and the uncertainty plots side by side
 %     figure;
-    
+
 %     set(gcf,'NumberTitle','off')
 %     set(gcf,'Name',names{i})
 
     subplot(k,2,2*(i-1)+1);
-    heat(Y,mus(:,i),log(sigmas(:,i)),0.01,0.1);title('Uncertainty');
+    heat(Y,mus(:,i),log(sigmas(:,i))/2.0,0.01,0.1);
+    title('Uncertainty');
     xlabel('Spectroscopic Redshift');
     ylabel('Photometric Redshift');
+    xlim([0 5]);
+    ylim([0 5]);
+    caxis([-3 -0.7]);
+    pbaspect([1 1 1]);
     colormap jet;
-    
+
     subplot(k,2,2*(i-1)+2);
     heat(Y,mus(:,i),[],0.01,0.1);
     title('Density');
     xlabel('Spectroscopic Redshift');
     ylabel('Photometric Redshift');
+    xlim([0 5]);
+    ylim([0 5]);
+    pbaspect([1 1 1]);
     colormap jet;
 
 end
