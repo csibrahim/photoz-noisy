@@ -102,6 +102,9 @@ for i=1:k
 end
 xlabel('Photometric Redshift');ylabel('Bias');legend(names);ylim([-1 1]);drawnow
 
+[centers,means,stds] = bin(Y,sqrt(sigmas),20);
+figure;errorbar(repmat(centers,1,k),means,stds,':','LineWidth',2);xlabel('Spectroscopic Redshift');ylabel('Total Uncertainty');legend(names);drawnow
+
 [centers,means,stds] = bin(Y,sqrt(nus),20);
 figure;errorbar(repmat(centers,1,k),means,stds,':','LineWidth',2);xlabel('Spectroscopic Redshift');ylabel('Model Uncertainty');legend(names);drawnow
 
