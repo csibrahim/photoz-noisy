@@ -212,9 +212,9 @@ if(trainOption==2)
     varMu = mu2-mu.^2;
     
     sigma = mean(sigma)'+varMu;
-    nu = mean(nu)'+varMu;
-    beta_i = mean(beta_i)'+varMu;
-    gamma = mean(gamma)'+varMu;
+    nu = mean(nu)';
+    beta_i = mean(beta_i)';
+    gamma = mean(gamma)';
 end
 
 % mu     = the best point estimate
