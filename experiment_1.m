@@ -22,7 +22,7 @@ csl_method = 'normal';
 trainOption = 1;    % 1=Features, 2=Sampling, 3=Parameters and 4=Weights
 samplingSize = 10;  % if sampling (trainOption=2) is used
 
-transform = 3;   % Assume 1 = log-normal, 2=gamma, 3=luptitudes and otherwise linear
+transform = 3;   % Assume 1=log-normal, 2=gamma, 3=luptitudes and otherwise linear
 
 trainPath = 'data/XMM_data_PH_27_11_18.csv'; % data to build the model
 testPath = 'data/COSMOS_data_PH_27_11_18.csv'; % data to test the model

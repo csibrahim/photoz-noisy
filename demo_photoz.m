@@ -199,7 +199,7 @@ n = length(mu);
 
 if(trainOption==2)
     mu = reshape(mu,samplingSize,n/samplingSize);
-    sigma = reshape(sigma,samplingSize,n/samplingSize);
+    
     nu = reshape(nu,samplingSize,n/samplingSize);
     beta_i = reshape(beta_i,samplingSize,n/samplingSize);
     gamma = reshape(gamma,samplingSize,n/samplingSize);
@@ -211,10 +211,11 @@ if(trainOption==2)
     mu = mean(mu)';
     varMu = mu2-mu.^2;
     
-    sigma = mean(sigma)'+varMu;
-    nu = mean(nu)'+varMu;
-    beta_i = mean(beta_i)'+varMu;
+    nu = mean(nu)';
+    beta_i = mean(beta_i)';
     gamma = mean(gamma)'+varMu;
+    
+    sigma = nu+beta_i+gamma;
 end
 
 % mu     = the best point estimate
